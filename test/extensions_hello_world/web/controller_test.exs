@@ -2,6 +2,10 @@ defmodule ExtensionHelloWorld.Web.ControllerTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
+  import Mox
+
+  alias ExtensionHelloWorld.MockUseCase, as: ChangeColor
+
   alias ExtensionHelloWorld.Web.Controller
 
   @opts Controller.init([])
@@ -20,23 +24,35 @@ defmodule ExtensionHelloWorld.Web.ControllerTest do
 
   describe "with a valid token" do
     test "POST /color/cycle returns a 429 Too Many Requests when user is in cool down" do
+      expect(ChangeColor, :run_with, fn(channel_id: "A CHANNEL ID", user_id: "A USER ID") ->
+        {:error, "user is in cool down"}
+      end)
+
       conn =
         post("/color/cycle")
         |> with_authorization("Bearer valid token")
         |> call(Controller)
 
-        assert conn.status == 429
-        assert conn.resp_body == "User is in cool down"
+      verify!(ChangeColor)
+
+      assert conn.status == 429
+      assert conn.resp_body == "User is in cool down"
     end
 
     test "POST /color/cycle returns a 202 Accepted when a user is changing color" do
+      expect(ChangeColor, :run_with, fn(channel_id: "A CHANNEL ID", user_id: "A USER ID") ->
+        {:ok, "user is changing color"}
+      end)
+
       conn =
         post("/color/cycle")
-        |> with_authorization("Bearer valid token accepted")
+        |> with_authorization("Bearer valid token")
         |> call(Controller)
 
-        assert conn.status == 202
-        assert conn.resp_body == ""
+      verify!(ChangeColor)
+
+      assert conn.status == 202
+      assert conn.resp_body == ""
     end
   end
 

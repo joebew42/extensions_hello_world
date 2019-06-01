@@ -7,7 +7,9 @@ defmodule ExtensionsHelloWorld.MixProject do
       version: "0.1.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      aliases: aliases(),
+      deps: deps(),
+      elixirc_paths: elixirc_paths(Mix.env),
     ]
   end
 
@@ -18,11 +20,21 @@ defmodule ExtensionsHelloWorld.MixProject do
     ]
   end
 
+  defp aliases do
+    [
+      test: "test --no-start"
+    ]
+  end
+
   defp deps do
     [
       {:plug_cowboy, "~> 2.0"},
       {:joken, "~> 2.0"},
       {:jason, "~> 1.1"},
+      {:mox, "~> 0.5.1", only: :test}
     ]
   end
+
+  defp elixirc_paths(:test), do: ["test/support", "lib"]
+  defp elixirc_paths(_),     do: ["lib"]
 end

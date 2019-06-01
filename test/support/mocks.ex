@@ -1,0 +1,1 @@
+Mox.defmock(ExtensionHelloWorld.MockUseCase, for: ExtensionHelloWorld.UseCase)
