@@ -3,7 +3,7 @@ defmodule ExtensionsHelloWorld.JWTTokenAuthenticator do
 
   @impl true
   def validate(token) do
-    case Joken.verify_and_validate(%{}, token, h256_signer()) do
+    case Joken.verify_and_validate(%{}, token, hs256_signer()) do
       {:error, :signature_error} ->
         {:error, :not_valid}
 
@@ -12,7 +12,7 @@ defmodule ExtensionsHelloWorld.JWTTokenAuthenticator do
     end
   end
 
-  defp h256_signer() do
+  defp hs256_signer() do
     Joken.Signer.create("HS256", secret())
   end
 
