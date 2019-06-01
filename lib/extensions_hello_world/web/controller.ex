@@ -4,12 +4,12 @@ defmodule ExtensionHelloWorld.Web.Controller do
   plug :match
   plug :dispatch
 
-  alias ExtensionHelloWorld.FakeTokenAuthenticator, as: TokenAuthenticator
+  alias ExtensionHelloWorld.MockTokenAuthenticator, as: TokenAuthenticator
   alias ExtensionHelloWorld.MockUseCase, as: ChangeColor
 
   post "/color/cycle" do
     case TokenAuthenticator.validate(token_from(conn)) do
-      {:error, :token_not_valid} ->
+      {:error, :not_valid} ->
         send_resp(conn, 401, "")
 
       {:ok, payload} ->

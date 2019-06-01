@@ -4,6 +4,7 @@ defmodule ExtensionHelloWorld.Web.ControllerTest do
 
   import Mox
 
+  alias ExtensionHelloWorld.MockTokenAuthenticator, as: TokenAuthenticator
   alias ExtensionHelloWorld.MockUseCase, as: ChangeColor
 
   alias ExtensionHelloWorld.Web.Controller
@@ -14,6 +15,8 @@ defmodule ExtensionHelloWorld.Web.ControllerTest do
 
   describe "with an invalid token" do
     test "POST /color/cycle returns a 401 Unauthorized" do
+      expect(TokenAuthenticator, :validate, fn(_) -> {:error, :not_valid} end)
+
       conn =
         post("/color/cycle")
         |> with_authorization("Bearer invalid token")
@@ -26,13 +29,16 @@ defmodule ExtensionHelloWorld.Web.ControllerTest do
 
   describe "with a valid token" do
     test "POST /color/cycle returns a 429 Too Many Requests when user is in cool down" do
+      expect(TokenAuthenticator, :validate, fn("A VALID TOKEN") ->
+        {:ok, %{ "channel_id" => "A CHANNEL ID", "user_id" => "A USER ID" }}
+      end)
       expect(ChangeColor, :run_with, fn(channel_id: "A CHANNEL ID", user_id: "A USER ID") ->
         {:error, "user is in cool down"}
       end)
 
       conn =
         post("/color/cycle")
-        |> with_authorization("Bearer valid token")
+        |> with_authorization("Bearer A VALID TOKEN")
         |> call(Controller)
 
       assert conn.status == 429
@@ -40,13 +46,16 @@ defmodule ExtensionHelloWorld.Web.ControllerTest do
     end
 
     test "POST /color/cycle returns a 202 Accepted when a user is changing color" do
+      expect(TokenAuthenticator, :validate, fn("A VALID TOKEN") ->
+        {:ok, %{ "channel_id" => "A CHANNEL ID", "user_id" => "A USER ID" }}
+      end)
       expect(ChangeColor, :run_with, fn(channel_id: "A CHANNEL ID", user_id: "A USER ID") ->
         {:ok, "user is changing color"}
       end)
 
       conn =
         post("/color/cycle")
-        |> with_authorization("Bearer valid token")
+        |> with_authorization("Bearer A VALID TOKEN")
         |> call(Controller)
 
       assert conn.status == 202
