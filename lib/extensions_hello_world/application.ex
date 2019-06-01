@@ -3,8 +3,7 @@ defmodule ExtensionsHelloWorld.Application do
 
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: ExtensionsHelloWorld.Worker.start_link(arg)
-      # {ExtensionsHelloWorld.Worker, arg}
+      Plug.Cowboy.child_spec(scheme: :http, plug: ExtensionsHelloWorld.Web.Controller, options: [port: 4001])
     ]
 
     opts = [strategy: :one_for_one, name: ExtensionsHelloWorld.Supervisor]
