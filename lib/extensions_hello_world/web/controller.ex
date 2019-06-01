@@ -11,7 +11,9 @@ defmodule ExtensionHelloWorld.Web.Controller do
 
       ["Bearer valid token"] ->
         send_resp(conn, 429, "User is in cool down")
-    end
 
+      ["Bearer valid token accepted"] ->
+          send_resp(conn, 202, "")
+    end
   end
 end

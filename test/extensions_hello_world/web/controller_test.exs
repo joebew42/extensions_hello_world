@@ -28,6 +28,16 @@ defmodule ExtensionHelloWorld.Web.ControllerTest do
         assert conn.status == 429
         assert conn.resp_body == "User is in cool down"
     end
+
+    test "POST /color/cycle returns a 202 Accepted when a user is changing color" do
+      conn =
+        post("/color/cycle")
+        |> with_authorization("Bearer valid token accepted")
+        |> call(Controller)
+
+        assert conn.status == 202
+        assert conn.resp_body == ""
+    end
   end
 
   defp post(endpoint) do
