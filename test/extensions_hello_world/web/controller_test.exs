@@ -10,6 +10,8 @@ defmodule ExtensionHelloWorld.Web.ControllerTest do
 
   @opts Controller.init([])
 
+  setup :verify_on_exit!
+
   describe "with an invalid token" do
     test "POST /color/cycle returns a 401 Unauthorized" do
       conn =
@@ -33,8 +35,6 @@ defmodule ExtensionHelloWorld.Web.ControllerTest do
         |> with_authorization("Bearer valid token")
         |> call(Controller)
 
-      verify!(ChangeColor)
-
       assert conn.status == 429
       assert conn.resp_body == "User is in cool down"
     end
@@ -48,8 +48,6 @@ defmodule ExtensionHelloWorld.Web.ControllerTest do
         post("/color/cycle")
         |> with_authorization("Bearer valid token")
         |> call(Controller)
-
-      verify!(ChangeColor)
 
       assert conn.status == 202
       assert conn.resp_body == ""
