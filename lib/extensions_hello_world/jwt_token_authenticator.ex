@@ -7,8 +7,11 @@ defmodule ExtensionsHelloWorld.JWTTokenAuthenticator do
       {:error, :signature_error} ->
         {:error, :not_valid}
 
-      {:ok, payload} ->
-        {:ok, payload}
+      {:ok, %{ "channel_id" => channel_id, "opaque_user_id" => user_id }} ->
+        {:ok, %{
+          "channel_id" => channel_id,
+          "user_id" => user_id
+        }}
     end
   end
 
