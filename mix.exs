@@ -29,6 +29,7 @@ defmodule ExtensionsHelloWorld.MixProject do
   defp deps do
     [
       {:plug_cowboy, "~> 2.0"},
+      {:cors_plug, "~> 2.0"},
       {:joken, "~> 2.0"},
       {:jason, "~> 1.1"},
       {:mox, "~> 0.5.1", only: :test}

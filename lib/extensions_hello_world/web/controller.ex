@@ -1,6 +1,7 @@
 defmodule ExtensionsHelloWorld.Web.Controller do
   use Plug.Router
 
+  plug CORSPlug
   plug :match
   plug :dispatch
 
