@@ -4,16 +4,13 @@ defmodule ExtensionHelloWorld.Web.Controller do
   plug :match
   plug :dispatch
 
-  alias ExtensionHelloWorld.MockTokenAuthenticator, as: TokenAuthenticator
-  alias ExtensionHelloWorld.MockUseCase, as: ChangeColor
-
   post "/color/cycle" do
-    case TokenAuthenticator.validate(token_from(conn)) do
+    case token_authenticator().validate(token_from(conn)) do
       {:error, :not_valid} ->
         send_resp(conn, 401, "")
 
       {:ok, payload} ->
-        case ChangeColor.run_with(channel_id: payload["channel_id"], user_id: payload["user_id"]) do
+        case change_color().run_with(channel_id: payload["channel_id"], user_id: payload["user_id"]) do
           {:error, "user is in cool down"} ->
             send_resp(conn, 429, "User is in cool down")
           {:ok, "user is changing color"} ->
@@ -31,5 +28,13 @@ defmodule ExtensionHelloWorld.Web.Controller do
   defp extract_bearer_token([full_with_bearer]) do
     bearer = byte_size("Bearer ")
     binary_part(full_with_bearer, bearer, byte_size(full_with_bearer) - bearer)
+  end
+
+  defp token_authenticator() do
+    Application.get_env(:extensions_hello_world, :token_authenticator)
+  end
+
+  defp change_color() do
+    Application.get_env(:extensions_hello_world, :change_color_use_case)
   end
 end

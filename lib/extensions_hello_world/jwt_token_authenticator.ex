@@ -13,7 +13,7 @@ defmodule ExtensionHelloWorld.JWTTokenAuthenticator do
   end
 
   defp h256_signer() do
-    secret = Application.get_env(:extension_hello_world, :jwt_token_authenticator_secret)
+    secret = Application.get_env(:extensions_hello_world, :jwt_token_authenticator_secret)
     Joken.Signer.create("HS256", secret)
   end
 end
