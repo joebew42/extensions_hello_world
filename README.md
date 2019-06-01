@@ -16,10 +16,3 @@ mix deps.get
 mix test
 ```
 
-## Notes
-
-signer = Joken.Signer.create("HS256", "secret")
-
-{:ok, token, _} = Joken.encode_and_sign(%{"hello" => "world"}, signer)
-
-{:error, :signature_error} | {:ok, %{"hello" => "world"} = payload} = Joken.verify_and_validate(%{}, token, signer)
