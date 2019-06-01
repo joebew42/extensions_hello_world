@@ -7,4 +7,4 @@ config :extensions_hello_world,
   change_color_use_case: ExtensionsHelloWorld.MockUseCase
 
 config :extensions_hello_world,
-  jwt_token_authenticator_secret: "A SECRET"
+  jwt_token_authenticator_secret: "c2VjcmV0" # "secret"

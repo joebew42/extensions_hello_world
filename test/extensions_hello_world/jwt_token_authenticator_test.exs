@@ -32,7 +32,7 @@ defmodule ExtensionsHelloWorld.JWTTokenAuthenticatorTest do
 
   defp build_token_for(payload) do
     secret = Application.get_env(:extensions_hello_world, :jwt_token_authenticator_secret)
-    signer = Joken.Signer.create("HS256", secret)
+    signer = Joken.Signer.create("HS256", Base.decode64!(secret))
 
     {:ok, token, _} = Joken.encode_and_sign(payload, signer)
 
