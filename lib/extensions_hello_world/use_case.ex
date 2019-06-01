@@ -1,4 +1,4 @@
-defmodule ExtensionHelloWorld.UseCase do
+defmodule ExtensionsHelloWorld.UseCase do
   @type request :: keyword()
 
   @type response :: {:ok, String.t()} | {:error, String.t()}

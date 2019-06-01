@@ -1,2 +1,2 @@
-Mox.defmock(ExtensionHelloWorld.MockTokenAuthenticator, for: ExtensionHelloWorld.TokenAuthenticator)
-Mox.defmock(ExtensionHelloWorld.MockUseCase, for: ExtensionHelloWorld.UseCase)
+Mox.defmock(ExtensionsHelloWorld.MockTokenAuthenticator, for: ExtensionsHelloWorld.TokenAuthenticator)
+Mox.defmock(ExtensionsHelloWorld.MockUseCase, for: ExtensionsHelloWorld.UseCase)

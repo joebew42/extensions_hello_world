@@ -1,5 +1,5 @@
-defmodule ExtensionHelloWorld.JWTTokenAuthenticator do
-  @behaviour ExtensionHelloWorld.TokenAuthenticator
+defmodule ExtensionsHelloWorld.JWTTokenAuthenticator do
+  @behaviour ExtensionsHelloWorld.TokenAuthenticator
 
   @impl true
   def validate(token) do

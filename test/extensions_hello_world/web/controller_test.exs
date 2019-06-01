@@ -1,13 +1,13 @@
-defmodule ExtensionHelloWorld.Web.ControllerTest do
+defmodule ExtensionsHelloWorld.Web.ControllerTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
   import Mox
 
-  alias ExtensionHelloWorld.MockTokenAuthenticator, as: TokenAuthenticator
-  alias ExtensionHelloWorld.MockUseCase, as: ChangeColor
+  alias ExtensionsHelloWorld.MockTokenAuthenticator, as: TokenAuthenticator
+  alias ExtensionsHelloWorld.MockUseCase, as: ChangeColor
 
-  alias ExtensionHelloWorld.Web.Controller
+  alias ExtensionsHelloWorld.Web.Controller
 
   @opts Controller.init([])
 

@@ -1,4 +1,4 @@
-defmodule ExtensionHelloWorld.Web.Controller do
+defmodule ExtensionsHelloWorld.Web.Controller do
   use Plug.Router
 
   plug :match
