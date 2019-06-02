@@ -4,7 +4,7 @@
 
 An example of a [Twitch Extension](https://dev.twitch.tv/docs/extensions/) written in Elixir.
 
-The original source code is accessible here [Extensions-Hello-World](https://github.com/twitchdev/extensions-hello-world).
+The original source code is accessible here [Extensions-Hello-World](https://github.com/twitchdev/extensions-hello-world). You don't need to have the [Extensions Developer Rig](https://dev.twitch.tv/docs/extensions/rig/) installed on your computer to play with this code. But if you consider to use this code as a base to build your own Twitch Extension, please consider to install the Rig, then.
 
 _Disclaimer_
 
@@ -24,7 +24,7 @@ mix test
 
 ## Integration Tests
 
-Remember to the needed environment variables:
+Remember to set the needed environment variables:
 
 - `JWT_TOKEN_AUTHENTICATOR_SECRET` is the Twitch Extension Secret
 - `TWITCH_API_PUBLISHER_CLIENT_ID` is the Twitch Client ID
@@ -44,7 +44,7 @@ mix test --only integration
 
 ## Start the application
 
-Remember to the needed environment variables:
+Remember to set the needed environment variables:
 
 - `JWT_TOKEN_AUTHENTICATOR_SECRET` is the Twitch Extension Secret
 - `TWITCH_API_PUBLISHER_CLIENT_ID` is the Twitch Client ID
