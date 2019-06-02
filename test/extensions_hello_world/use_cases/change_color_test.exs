@@ -36,22 +36,22 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
       :ok
     end
 
-    test "it will set the new cool down" do
+    test "it will return a successful response" do
       response = ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
 
       assert response == {:ok, "user is changing color"}
+    end
+
+    test "it will set the new cool down" do
+      ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end
 
     test "it will change the color" do
-      response = ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
-
-      assert response == {:ok, "user is changing color"}
+      ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end
 
     test "it will send a notification about the change" do
-      response = ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
-
-      assert response == {:ok, "user is changing color"}
+      ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end
   end
 
