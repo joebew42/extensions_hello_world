@@ -11,26 +11,25 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
 
   describe "when the user is in cool down" do
     test "it will return an error" do
-      expect(Users, :find, fn("A COOL DOWN USER ID") ->
+      expect(Users, :find, fn("A USER ID") ->
         %User{
-          id: "A COOL DOWN USER ID",
-          last_request: date_time_add(30, :seconds)
+          id: "A USER ID",
+          cooldown: date_time_add(30, :seconds)
         }
       end)
 
-      response = ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A COOL DOWN USER ID")
+      response = ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
 
       assert response == {:error, "user is in cool down"}
     end
   end
 
   describe "when the user is not in cool down" do
-
     setup do
       expect(Users, :find, fn("A USER ID") ->
         %User{
           id: "A USER ID",
-          last_request: date_time_subtract(30, :seconds)
+          cooldown: date_time_subtract(30, :seconds)
         }
       end)
 
