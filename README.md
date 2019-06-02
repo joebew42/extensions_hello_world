@@ -6,7 +6,7 @@ The original source code is accessible here [Extensions-Hello-World](https://git
 
 _Disclaimer_
 
-> This example cover several topics regarding Clean Code, Clean Architecture and Test-Driven Development. There are also [different points that are left deliberately open](issue page), which you can use to reflect and practice more. The code here is intented for an audience who wants to learn more about Clean Code and/or is looking for a new didactical content.
+> This example cover several topics regarding Clean Code, Clean Architecture, Crafted Design and Test-Driven Development. There are also [different points that are left deliberately open](issue page), which you can use to reflect and practice more. The code here is intented for an audience who wants to learn more about Clean Code and/or is looking for a new didactical content.
 
 ## Setup
 

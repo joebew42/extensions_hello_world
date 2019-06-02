@@ -3,7 +3,7 @@ defmodule ExtensionsHelloWorld.Infrastructure.GenServerUsers do
 
   @impl true
   def find(_user_id) do
-    raise "Not Yet Implemented"
+    {:error, :not_found}
   end
 
   @impl true
