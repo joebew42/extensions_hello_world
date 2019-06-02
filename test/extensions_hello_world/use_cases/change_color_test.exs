@@ -3,13 +3,14 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
 
   import Mox
 
-  alias ExtensionsHelloWorld.MockUsers, as: Users
   alias ExtensionsHelloWorld.User
+  alias ExtensionsHelloWorld.MockUsers, as: Users
+  alias ExtensionsHelloWorld.MockCoolDown, as: CoolDown
   alias ExtensionsHelloWorld.UseCases.ChangeColor
 
   setup :verify_on_exit!
 
-  describe "when the user is in cool down" do
+  describe "when user is in cool down" do
     test "it will return an error" do
       expect(Users, :find, fn("A USER ID") ->
         %User{
@@ -24,7 +25,7 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
     end
   end
 
-  describe "when the user is not in cool down" do
+  describe "when user is not in cool down" do
     setup do
       expect(Users, :find, fn("A USER ID") ->
         %User{
@@ -32,6 +33,9 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
           cooldown: date_time_subtract(30, :seconds)
         }
       end)
+
+      stub(CoolDown, :new, fn() -> nil end)
+      stub(Users, :save, fn(_) -> :ok end)
 
       :ok
     end
@@ -43,14 +47,24 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
     end
 
     test "it will set the new cool down" do
+      expected_new_cooldown = date_time_add(30, :seconds)
+
+      expected_user = %User{
+        id: "A USER ID",
+        cooldown: expected_new_cooldown
+      }
+
+      expect(CoolDown, :new, fn() -> expected_new_cooldown end)
+      expect(Users, :save, fn(^expected_user) -> :ok end)
+
       ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end
 
-    test "it will change the color" do
+    test "it will change the color to the channel" do
       ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end
 
-    test "it will send a notification about the change" do
+    test "it will send a notification about the color change" do
       ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end
   end

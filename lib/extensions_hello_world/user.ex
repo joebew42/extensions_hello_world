@@ -11,4 +11,8 @@ defmodule ExtensionsHelloWorld.User do
         false
     end
   end
+
+  def set_cooldown(%__MODULE__{} = user, new_cooldown) do
+    %__MODULE__{user | cooldown: new_cooldown }
+  end
 end
