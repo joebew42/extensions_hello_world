@@ -3,6 +3,8 @@ defmodule ExtensionsHelloWorld.Infrastructure.ThirtySecondsCoolDown do
 
   @impl true
   def new() do
-    raise "Not Yet Implemented"
+    {:ok, now} = DateTime.now("Etc/UTC")
+
+    DateTime.add(now, 30, :second)
   end
 end
