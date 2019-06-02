@@ -107,7 +107,7 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
   end
 
   describe "when user does not exist" do
-    test "it will be saved it as a new one" do
+    test "it will be saved as a new one" do
       expected_new_cooldown = date_time_add(30, :seconds)
 
       expected_user = %User{
