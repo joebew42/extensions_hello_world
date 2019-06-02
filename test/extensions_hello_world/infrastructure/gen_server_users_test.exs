@@ -13,6 +13,17 @@ defmodule ExtensionsHelloWorld.Infrastructure.GenServerUsersTest do
     test "return not found when the user not exist" do
       assert Users.find("A USER ID") == {:error, :not_found}
     end
+
+    test "return the user" do
+      user = %User{
+        id: "AN ID",
+        cooldown: nil
+      }
+
+      Users.save(user)
+
+      assert Users.find(user.id) == user
+    end
   end
 
   describe "save" do

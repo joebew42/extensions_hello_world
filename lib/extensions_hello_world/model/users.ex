@@ -3,6 +3,6 @@ defmodule ExtensionsHelloWorld.Model.Users do
 
   @type user_id :: String.t()
 
-  @callback find(user_id()) :: {:ok, %User{}} | {:error, :not_found}
+  @callback find(user_id()) :: %User{} | {:error, :not_found}
   @callback save(%User{}) :: :ok
 end
