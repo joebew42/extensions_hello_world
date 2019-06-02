@@ -11,6 +11,8 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
   alias ExtensionsHelloWorld.MockChannels, as: Channels
   alias ExtensionsHelloWorld.MockColorPicker, as: ColorPicker
 
+  alias ExtensionsHelloWorld.MockPublisher, as: Publisher
+
   alias ExtensionsHelloWorld.UseCases.ChangeColor
 
   setup :verify_on_exit!
@@ -43,6 +45,7 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
       stub(Users, :save, fn(_) -> :ok end)
       stub(ColorPicker, :pick, fn() -> nil end)
       stub(Channels, :save, fn(_) -> :ok end)
+      stub(Publisher, :publish, fn(_) -> :ok end)
 
       :ok
     end
@@ -82,6 +85,16 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
     end
 
     test "it will send a notification about the color change" do
+      expected_new_color = "A NEW COLOR"
+
+      expected_notification = %{
+        channel_id: "A CHANNEL ID",
+        color: expected_new_color
+      }
+
+      expect(ColorPicker, :pick, fn() -> expected_new_color end)
+      expect(Publisher, :publish, fn(^expected_notification) -> :ok end)
+
       ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end
   end
