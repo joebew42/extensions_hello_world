@@ -2,3 +2,5 @@ Mox.defmock(ExtensionsHelloWorld.MockTokenAuthenticator, for: ExtensionsHelloWor
 Mox.defmock(ExtensionsHelloWorld.MockUseCase, for: ExtensionsHelloWorld.UseCase)
 Mox.defmock(ExtensionsHelloWorld.MockUsers, for: ExtensionsHelloWorld.Users)
 Mox.defmock(ExtensionsHelloWorld.MockCoolDown, for: ExtensionsHelloWorld.CoolDown)
+Mox.defmock(ExtensionsHelloWorld.MockChannels, for: ExtensionsHelloWorld.Channels)
+Mox.defmock(ExtensionsHelloWorld.MockColorPicker, for: ExtensionsHelloWorld.ColorPicker)

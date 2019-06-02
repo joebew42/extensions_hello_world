@@ -8,8 +8,12 @@ defmodule ExtensionsHelloWorld.UseCases.ChangeColor do
   alias ExtensionsHelloWorld.MockUsers, as: Users
   alias ExtensionsHelloWorld.MockCoolDown, as: CoolDown
 
+  alias ExtensionsHelloWorld.Channel
+  alias ExtensionsHelloWorld.MockChannels, as: Channels
+  alias ExtensionsHelloWorld.MockColorPicker, as: ColorPicker
+
   @impl true
-  def run_with(channel_id: _channel_id, user_id: user_id) do
+  def run_with(channel_id: channel_id, user_id: user_id) do
     user = Users.find(user_id)
 
     case User.cooldown?(user) do
@@ -20,6 +24,11 @@ defmodule ExtensionsHelloWorld.UseCases.ChangeColor do
           user
           |> User.set_cooldown(CoolDown.new())
           |> Users.save()
+
+        :ok =
+          %Channel{id: channel_id}
+          |> Channel.set_color(ColorPicker.pick())
+          |> Channels.save()
 
         {:ok, @user_is_changing_color}
     end

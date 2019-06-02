@@ -6,6 +6,11 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
   alias ExtensionsHelloWorld.User
   alias ExtensionsHelloWorld.MockUsers, as: Users
   alias ExtensionsHelloWorld.MockCoolDown, as: CoolDown
+
+  alias ExtensionsHelloWorld.Channel
+  alias ExtensionsHelloWorld.MockChannels, as: Channels
+  alias ExtensionsHelloWorld.MockColorPicker, as: ColorPicker
+
   alias ExtensionsHelloWorld.UseCases.ChangeColor
 
   setup :verify_on_exit!
@@ -36,6 +41,8 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
 
       stub(CoolDown, :new, fn() -> nil end)
       stub(Users, :save, fn(_) -> :ok end)
+      stub(ColorPicker, :pick, fn() -> nil end)
+      stub(Channels, :save, fn(_) -> :ok end)
 
       :ok
     end
@@ -61,6 +68,16 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
     end
 
     test "it will change the color to the channel" do
+      expected_new_color = "A NEW COLOR"
+
+      expected_channel = %Channel{
+        id: "A CHANNEL ID",
+        color: expected_new_color
+      }
+
+      expect(ColorPicker, :pick, fn() -> expected_new_color end)
+      expect(Channels, :save, fn(^expected_channel) -> :ok end)
+
       ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end
 
