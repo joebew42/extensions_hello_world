@@ -1,4 +1,4 @@
-defmodule ExtensionsHelloWorld.JWTTokenAuthenticator do
+defmodule ExtensionsHelloWorld.Infrastructure.JWTTokenAuthenticator do
   @behaviour ExtensionsHelloWorld.TokenAuthenticator
 
   @impl true

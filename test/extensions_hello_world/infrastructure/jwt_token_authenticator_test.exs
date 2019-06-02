@@ -1,7 +1,7 @@
-defmodule ExtensionsHelloWorld.JWTTokenAuthenticatorTest do
+defmodule ExtensionsHelloWorld.Infrastructure.JWTTokenAuthenticatorTest do
   use ExUnit.Case, async: true
 
-  alias ExtensionsHelloWorld.JWTTokenAuthenticator, as: TokenAuthenticator
+  alias ExtensionsHelloWorld.Infrastructure.JWTTokenAuthenticator, as: TokenAuthenticator
 
   describe "#validate" do
     test "return error when the token is not valid" do
