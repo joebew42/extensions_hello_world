@@ -1,6 +1,9 @@
 defmodule ExtensionsHelloWorld.UseCases.ChangeColor do
   @behaviour ExtensionsHelloWorld.UseCase
 
+  @user_is_in_cool_down   "user is in cool down"
+  @user_is_changing_color "user is changing color"
+
   alias ExtensionsHelloWorld.User
   alias ExtensionsHelloWorld.MockUsers, as: Users
 
@@ -10,9 +13,9 @@ defmodule ExtensionsHelloWorld.UseCases.ChangeColor do
 
     case User.cooldown?(user) do
       true ->
-        {:error, "user is in cool down"}
+        {:error, @user_is_in_cool_down}
       false ->
-        {:ok, "user is changing color"}
+        {:ok, @user_is_changing_color}
     end
   end
 end
