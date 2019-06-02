@@ -21,7 +21,7 @@ defmodule ExtensionsHelloWorld.Infrastructure.JWTTokenAuthenticator do
   end
 
   defp secret() do
-    System.get_env("JWT_TOKEN_AUTHENTICATOR_SECRET") ||
-      Application.get_env(:extensions_hello_world, :jwt_token_authenticator_secret)
+    Application.get_env(:extensions_hello_world, :jwt_token_authenticator_secret) ||
+      System.get_env("JWT_TOKEN_AUTHENTICATOR_SECRET")
   end
 end

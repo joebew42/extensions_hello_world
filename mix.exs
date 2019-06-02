@@ -32,6 +32,7 @@ defmodule ExtensionsHelloWorld.MixProject do
       {:cors_plug, "~> 2.0"},
       {:joken, "~> 2.0"},
       {:jason, "~> 1.1"},
+      {:httpoison, "~> 1.5"},
       {:mox, "~> 0.5.1", only: :test}
     ]
   end

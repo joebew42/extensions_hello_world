@@ -29,11 +29,13 @@ Remember to set the needed environment variables:
 - `JWT_TOKEN_AUTHENTICATOR_SECRET` is the Twitch Extension Secret
 - `TWITCH_API_PUBLISHER_CLIENT_ID` is the Twitch Client ID
 - `TWITCH_API_PUBLISHER_OWNER_ID`  is the Twitch Owner ID
+- `TWITCH_API_PUBLISHER_CHANNEL_ID` is the Twitch Channel ID (is only used by [`TwitchAPIPublisherTest`](test/extensions_hello_world/infrastructure/twitch_api_publisher_test.exs))
 
 ```
 export JWT_TOKEN_AUTHENTICATOR_SECRET=<TWITCH EXTENSION SECRET>
 export TWITCH_API_PUBLISHER_CLIENT_ID=<TWITCH EXTENSION CLIENT ID>
 export TWITCH_API_PUBLISHER_OWNER_ID=<TWITCH OWNER ID>
+export TWITCH_API_PUBLISHER_CHANNEL_ID=<TWITCH CHANNEL ID>
 ```
 
 The run the integration tests
