@@ -1,4 +1,4 @@
-defmodule ExtensionsHelloWorld.Web.ControllerTest do
+defmodule ExtensionsHelloWorld.Infrastructure.WebControllerTest do
   use ExUnit.Case, async: true
   use Plug.Test
 
@@ -7,9 +7,9 @@ defmodule ExtensionsHelloWorld.Web.ControllerTest do
   alias ExtensionsHelloWorld.MockTokenAuthenticator, as: TokenAuthenticator
   alias ExtensionsHelloWorld.MockUseCase, as: ChangeColor
 
-  alias ExtensionsHelloWorld.Web.Controller
+  alias ExtensionsHelloWorld.Infrastructure.WebController
 
-  @opts Controller.init([])
+  @opts WebController.init([])
 
   setup :verify_on_exit!
 
@@ -20,7 +20,7 @@ defmodule ExtensionsHelloWorld.Web.ControllerTest do
       conn =
         post("/color/cycle")
         |> with_authorization("Bearer invalid token")
-        |> call(Controller)
+        |> call(WebController)
 
       assert conn.status == 401
       assert conn.resp_body == ""
@@ -39,7 +39,7 @@ defmodule ExtensionsHelloWorld.Web.ControllerTest do
       conn =
         post("/color/cycle")
         |> with_authorization("Bearer A VALID TOKEN")
-        |> call(Controller)
+        |> call(WebController)
 
       assert conn.status == 429
       assert conn.resp_body == "User is in cool down"
@@ -56,7 +56,7 @@ defmodule ExtensionsHelloWorld.Web.ControllerTest do
       conn =
         post("/color/cycle")
         |> with_authorization("Bearer A VALID TOKEN")
-        |> call(Controller)
+        |> call(WebController)
 
       assert conn.status == 202
       assert conn.resp_body == ""

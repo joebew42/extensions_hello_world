@@ -1,4 +1,4 @@
-defmodule ExtensionsHelloWorld.Web.Controller do
+defmodule ExtensionsHelloWorld.Infrastructure.WebController do
   use Plug.Router
 
   plug CORSPlug
