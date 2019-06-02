@@ -5,18 +5,11 @@ defmodule ExtensionsHelloWorld.UseCases.ChangeColor do
   @user_is_changing_color "user is changing color"
 
   alias ExtensionsHelloWorld.User
-  alias ExtensionsHelloWorld.MockUsers, as: Users
-  alias ExtensionsHelloWorld.MockCoolDown, as: CoolDown
-
   alias ExtensionsHelloWorld.Channel
-  alias ExtensionsHelloWorld.MockChannels, as: Channels
-  alias ExtensionsHelloWorld.MockColorPicker, as: ColorPicker
-
-  alias ExtensionsHelloWorld.MockPublisher, as: Publisher
 
   @impl true
   def run_with(channel_id: channel_id, user_id: user_id) do
-    user = Users.find(user_id)
+    user = users().find(user_id)
 
     case User.cooldown?(user) do
       true ->
@@ -25,20 +18,40 @@ defmodule ExtensionsHelloWorld.UseCases.ChangeColor do
         # This is about setting the new cooldown for the user
         :ok =
           user
-          |> User.set_cooldown(CoolDown.new())
-          |> Users.save()
+          |> User.set_cooldown(cooldown().new())
+          |> users().save()
 
         # This is about setting a new color for the channel
-        new_color = ColorPicker.pick()
+        new_color = color_picker().pick()
 
         :ok =
           %Channel{id: channel_id}
           |> Channel.set_color(new_color)
-          |> Channels.save()
+          |> channels().save()
 
-        :ok = Publisher.publish(%{ channel_id: channel_id, color: new_color })
+        :ok = publisher().publish(%{ channel_id: channel_id, color: new_color })
 
         {:ok, @user_is_changing_color}
     end
+  end
+
+  defp users() do
+    Application.get_env(:extensions_hello_world, :users)
+  end
+
+  defp cooldown() do
+    Application.get_env(:extensions_hello_world, :cooldown)
+  end
+
+  defp color_picker() do
+    Application.get_env(:extensions_hello_world, :color_picker)
+  end
+
+  defp channels() do
+    Application.get_env(:extensions_hello_world, :channels)
+  end
+
+  defp publisher() do
+    Application.get_env(:extensions_hello_world, :publisher)
   end
 end
