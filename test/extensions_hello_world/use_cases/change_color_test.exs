@@ -17,6 +17,19 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
 
   setup :verify_on_exit!
 
+  setup do
+    Users
+    |> stub(:save, fn(_) -> :ok end)
+    |> stub(:find, fn(_) -> nil end)
+
+    stub(CoolDown, :new, fn() -> nil end)
+    stub(ColorPicker, :pick, fn() -> nil end)
+    stub(Channels, :save, fn(_) -> :ok end)
+    stub(Publisher, :publish, fn(_) -> :ok end)
+
+    :ok
+  end
+
   describe "when user is in cool down" do
     test "it will return an error" do
       expect(Users, :find, fn("A USER ID") ->
@@ -40,12 +53,6 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
           cooldown: date_time_subtract(30, :seconds)
         }
       end)
-
-      stub(CoolDown, :new, fn() -> nil end)
-      stub(Users, :save, fn(_) -> :ok end)
-      stub(ColorPicker, :pick, fn() -> nil end)
-      stub(Channels, :save, fn(_) -> :ok end)
-      stub(Publisher, :publish, fn(_) -> :ok end)
 
       :ok
     end
@@ -100,13 +107,6 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
   end
 
   describe "when user does not exist" do
-    setup do
-      stub(ColorPicker, :pick, fn() -> nil end)
-      stub(Channels, :save, fn(_) -> :ok end)
-      stub(Publisher, :publish, fn(_) -> :ok end)
-      :ok
-    end
-
     test "it will be saved it as a new one" do
       expected_new_cooldown = date_time_add(30, :seconds)
 
