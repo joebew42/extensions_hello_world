@@ -1,9 +1,9 @@
 defmodule ExtensionsHelloWorld.Infrastructure.WebController do
   use Plug.Router
 
-  plug CORSPlug
-  plug :match
-  plug :dispatch
+  plug(CORSPlug)
+  plug(:match)
+  plug(:dispatch)
 
   post "/color/cycle" do
     case token_authenticator().validate(token_from(conn)) do
@@ -11,9 +11,13 @@ defmodule ExtensionsHelloWorld.Infrastructure.WebController do
         send_resp(conn, 401, "")
 
       {:ok, payload} ->
-        case change_color().run_with(channel_id: payload["channel_id"], user_id: payload["user_id"]) do
+        case change_color().run_with(
+               channel_id: payload["channel_id"],
+               user_id: payload["user_id"]
+             ) do
           {:error, "user is in cool down"} ->
             send_resp(conn, 429, "User is in cool down")
+
           {:ok, "user is changing color"} ->
             send_resp(conn, 202, "")
         end

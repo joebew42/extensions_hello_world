@@ -11,6 +11,6 @@ config :extensions_hello_world,
   cooldown: ExtensionsHelloWorld.MockCoolDown,
   publisher: ExtensionsHelloWorld.MockPublisher
 
-
 config :extensions_hello_world,
-  jwt_token_authenticator_secret: "c2VjcmV0" # "secret"
+  # "secret"
+  jwt_token_authenticator_secret: "c2VjcmV0"

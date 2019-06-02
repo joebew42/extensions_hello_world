@@ -9,7 +9,7 @@ defmodule ExtensionsHelloWorld.MixProject do
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      elixirc_paths: elixirc_paths(Mix.env),
+      elixirc_paths: elixirc_paths(Mix.env())
     ]
   end
 
@@ -37,5 +37,5 @@ defmodule ExtensionsHelloWorld.MixProject do
   end
 
   defp elixirc_paths(:test), do: ["test/support", "lib"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 end

@@ -37,12 +37,14 @@ defmodule ExtensionsHelloWorld.Infrastructure.GenServerUsers do
 
   @impl true
   def handle_call({:find, user_id}, _from, state) do
-    response = case Map.get(state, user_id) do
-      nil ->
-        {:error, :not_found}
-      user ->
-        user
-    end
+    response =
+      case Map.get(state, user_id) do
+        nil ->
+          {:error, :not_found}
+
+        user ->
+          user
+      end
 
     {:reply, response, state}
   end

@@ -11,22 +11,25 @@ defmodule ExtensionsHelloWorld.Infrastructure.JWTTokenAuthenticatorTest do
     test "return the information contained in token when it is valid" do
       # Twitch Extension JWT Schema
       # https://dev.twitch.tv/docs/extensions/reference/#jwt-schema
-      token = build_token_for(%{
-        "exp" => 1484242525,
-        "opaque_user_id" => "UG12X345T6J78",
-        "channel_id" => "test_channel",
-        "role" => "broadcaster",
-        "is_unlinked" => "false",
-        "pubsub_perms" => %{
-          "listen" => ["broadcast", "whisper-UG12X345T6J78"],
-          "send" => ["broadcast","whisper-*"]
-        }
-      })
+      token =
+        build_token_for(%{
+          "exp" => 1_484_242_525,
+          "opaque_user_id" => "UG12X345T6J78",
+          "channel_id" => "test_channel",
+          "role" => "broadcaster",
+          "is_unlinked" => "false",
+          "pubsub_perms" => %{
+            "listen" => ["broadcast", "whisper-UG12X345T6J78"],
+            "send" => ["broadcast", "whisper-*"]
+          }
+        })
 
-      assert TokenAuthenticator.validate(token) == {:ok, %{
-        "channel_id" => "test_channel",
-        "user_id" => "UG12X345T6J78"
-      }}
+      assert TokenAuthenticator.validate(token) ==
+               {:ok,
+                %{
+                  "channel_id" => "test_channel",
+                  "user_id" => "UG12X345T6J78"
+                }}
     end
   end
 

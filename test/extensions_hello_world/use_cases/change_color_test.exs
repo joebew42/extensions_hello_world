@@ -19,20 +19,20 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
 
   setup do
     Users
-    |> stub(:save, fn(_) -> :ok end)
-    |> stub(:find, fn(_) -> nil end)
+    |> stub(:save, fn _ -> :ok end)
+    |> stub(:find, fn _ -> nil end)
 
-    stub(CoolDown, :new, fn() -> nil end)
-    stub(ColorPicker, :pick, fn() -> nil end)
-    stub(Channels, :save, fn(_) -> :ok end)
-    stub(Publisher, :publish, fn(_) -> :ok end)
+    stub(CoolDown, :new, fn -> nil end)
+    stub(ColorPicker, :pick, fn -> nil end)
+    stub(Channels, :save, fn _ -> :ok end)
+    stub(Publisher, :publish, fn _ -> :ok end)
 
     :ok
   end
 
   describe "when user is in cool down" do
     test "it will return an error" do
-      expect(Users, :find, fn("A USER ID") ->
+      expect(Users, :find, fn "A USER ID" ->
         %User{
           id: "A USER ID",
           cooldown: date_time_add(30, :seconds)
@@ -47,7 +47,7 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
 
   describe "when user is not in cool down" do
     setup do
-      expect(Users, :find, fn("A USER ID") ->
+      expect(Users, :find, fn "A USER ID" ->
         %User{
           id: "A USER ID",
           cooldown: date_time_subtract(30, :seconds)
@@ -71,8 +71,8 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
         cooldown: expected_new_cooldown
       }
 
-      expect(CoolDown, :new, fn() -> expected_new_cooldown end)
-      expect(Users, :save, fn(^expected_user) -> :ok end)
+      expect(CoolDown, :new, fn -> expected_new_cooldown end)
+      expect(Users, :save, fn ^expected_user -> :ok end)
 
       ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end
@@ -85,8 +85,8 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
         color: expected_new_color
       }
 
-      expect(ColorPicker, :pick, fn() -> expected_new_color end)
-      expect(Channels, :save, fn(^expected_channel) -> :ok end)
+      expect(ColorPicker, :pick, fn -> expected_new_color end)
+      expect(Channels, :save, fn ^expected_channel -> :ok end)
 
       ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end
@@ -99,8 +99,8 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
         color: expected_new_color
       }
 
-      expect(ColorPicker, :pick, fn() -> expected_new_color end)
-      expect(Publisher, :publish, fn(^expected_notification) -> :ok end)
+      expect(ColorPicker, :pick, fn -> expected_new_color end)
+      expect(Publisher, :publish, fn ^expected_notification -> :ok end)
 
       ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end
@@ -115,9 +115,9 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
         cooldown: expected_new_cooldown
       }
 
-      expect(Users, :find, fn("A USER ID") -> {:error, :not_found} end)
-      expect(CoolDown, :new, fn() -> expected_new_cooldown end)
-      expect(Users, :save, fn(^expected_user) -> :ok end)
+      expect(Users, :find, fn "A USER ID" -> {:error, :not_found} end)
+      expect(CoolDown, :new, fn -> expected_new_cooldown end)
+      expect(Users, :save, fn ^expected_user -> :ok end)
 
       ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
     end

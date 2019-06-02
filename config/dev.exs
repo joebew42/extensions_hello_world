@@ -10,4 +10,5 @@ config :extensions_hello_world,
   publisher: ExtensionsHelloWorld.Infrastructure.TwitchAPIPublisher
 
 config :extensions_hello_world,
-  jwt_token_authenticator_secret: "" # Use the JWT_TOKEN_AUTHENTICATOR_SECRET env variable
+  # Use the JWT_TOKEN_AUTHENTICATOR_SECRET env variable
+  jwt_token_authenticator_secret: ""
