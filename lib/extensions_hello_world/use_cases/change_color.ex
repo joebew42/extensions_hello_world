@@ -9,7 +9,7 @@ defmodule ExtensionsHelloWorld.UseCases.ChangeColor do
 
   @impl true
   def run_with(channel_id: channel_id, user_id: user_id) do
-    user = users().find(user_id)
+    user = find_or_create_user(user_id)
 
     case User.cooldown?(user) do
       true ->
@@ -32,6 +32,16 @@ defmodule ExtensionsHelloWorld.UseCases.ChangeColor do
         :ok = publisher().publish(%{ channel_id: channel_id, color: new_color })
 
         {:ok, @user_is_changing_color}
+    end
+  end
+
+  defp find_or_create_user(user_id) do
+    case users().find(user_id) do
+      {:error, :not_found} ->
+        %User{id: user_id}
+
+      user ->
+        user
     end
   end
 

@@ -1,6 +1,10 @@
 defmodule ExtensionsHelloWorld.Model.User do
   defstruct id: nil, cooldown: nil
 
+  def cooldown?(%__MODULE__{ cooldown: nil }) do
+    false
+  end
+
   def cooldown?(%__MODULE__{ cooldown: cooldown }) do
     {:ok, now} = DateTime.now("Etc/UTC")
 

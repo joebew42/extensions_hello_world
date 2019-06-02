@@ -99,6 +99,30 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
     end
   end
 
+  describe "when user does not exist" do
+    setup do
+      stub(ColorPicker, :pick, fn() -> nil end)
+      stub(Channels, :save, fn(_) -> :ok end)
+      stub(Publisher, :publish, fn(_) -> :ok end)
+      :ok
+    end
+
+    test "it will be saved it as a new one" do
+      expected_new_cooldown = date_time_add(30, :seconds)
+
+      expected_user = %User{
+        id: "A USER ID",
+        cooldown: expected_new_cooldown
+      }
+
+      expect(Users, :find, fn("A USER ID") -> {:error, :not_found} end)
+      expect(CoolDown, :new, fn() -> expected_new_cooldown end)
+      expect(Users, :save, fn(^expected_user) -> :ok end)
+
+      ChangeColor.run_with(channel_id: "A CHANNEL ID", user_id: "A USER ID")
+    end
+  end
+
   defp date_time_add(seconds_to_add, :seconds) do
     now() |> DateTime.add(seconds_to_add, :second)
   end

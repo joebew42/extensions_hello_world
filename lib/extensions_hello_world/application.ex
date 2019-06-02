@@ -2,9 +2,11 @@ defmodule ExtensionsHelloWorld.Application do
   use Application
 
   alias ExtensionsHelloWorld.Infrastructure.WebController
+  alias ExtensionsHelloWorld.Infrastructure.GenServerUsers
 
   def start(_type, _args) do
     children = [
+      GenServerUsers,
       Plug.Cowboy.child_spec(scheme: :http, plug: WebController, options: [port: 4001])
     ]
 
