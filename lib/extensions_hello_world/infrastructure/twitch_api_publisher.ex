@@ -7,15 +7,16 @@ defmodule ExtensionsHelloWorld.Infrastructure.TwitchAPIPublisher do
   def publish(%{channel_id: channel_id, color: color}) do
     headers = [
       "Client-ID": client_id(),
-      "Content-Type": "application/json" ,
-      "Authorization": "Bearer #{to_jwt(channel_id)}"
+      "Content-Type": "application/json",
+      Authorization: "Bearer #{to_jwt(channel_id)}"
     ]
 
-    body = Jason.encode!(%{
-      content_type: "application/json",
-      message: color,
-      targets: ["broadcast"],
-    })
+    body =
+      Jason.encode!(%{
+        content_type: "application/json",
+        message: color,
+        targets: ["broadcast"]
+      })
 
     %HTTPoison.Response{status_code: 204} =
       HTTPoison.post!("https://api.twitch.tv/extensions/message/#{channel_id}", body, headers)
@@ -31,7 +32,7 @@ defmodule ExtensionsHelloWorld.Infrastructure.TwitchAPIPublisher do
       user_id: owner_id(),
       role: "external",
       pubsub_perms: %{
-        send: ["*"],
+        send: ["*"]
       }
     }
 

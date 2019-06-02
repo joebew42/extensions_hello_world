@@ -18,5 +18,3 @@ config :extensions_hello_world,
   twitch_api_publisher_client_id: nil,
   # Use the TWITCH_API_PUBLISHER_OWNER_ID
   twitch_api_publisher_owner_id: nil
-
-

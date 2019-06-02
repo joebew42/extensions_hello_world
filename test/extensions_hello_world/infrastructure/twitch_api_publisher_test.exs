@@ -12,7 +12,9 @@ defmodule ExtensionsHelloWorld.Infrastructure.TwitchAPIPublisherTest do
   describe "publish" do
     test "will send a notification using Twitch API" do
       channel_id = System.get_env("TWITCH_API_PUBLISHER_CHANNEL_ID")
-      refute channel_id == nil, "You need to set TWITCH_API_PUBLISHER_CHANNEL_ID env variable. Check the README.md"
+
+      refute channel_id == nil,
+             "You need to set TWITCH_API_PUBLISHER_CHANNEL_ID env variable. Check the README.md"
 
       notification = %{
         channel_id: channel_id,
