@@ -11,10 +11,7 @@ defmodule ExtensionsHelloWorld.Infrastructure.WebController do
         send_resp(conn, 401, "")
 
       {:ok, payload} ->
-        case change_color().run_with(
-               channel_id: payload["channel_id"],
-               user_id: payload["user_id"]
-             ) do
+        case change_color().run_with(channel_id: payload["channel_id"], user_id: payload["user_id"]) do
           {:error, "user is in cool down"} ->
             send_resp(conn, 429, "User is in cool down")
 
