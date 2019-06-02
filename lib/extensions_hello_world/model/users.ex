@@ -1,5 +1,5 @@
-defmodule ExtensionsHelloWorld.Users do
-  alias ExtensionsHelloWorld.User
+defmodule ExtensionsHelloWorld.Model.Users do
+  alias ExtensionsHelloWorld.Model.User
 
   @type user_id :: String.t()
 

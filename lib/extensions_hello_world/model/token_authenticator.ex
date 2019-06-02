@@ -1,4 +1,4 @@
-defmodule ExtensionsHelloWorld.TokenAuthenticator do
+defmodule ExtensionsHelloWorld.Model.TokenAuthenticator do
   @type token :: String.t()
 
   @type response :: {:ok, map()} | {:error, :not_valid}

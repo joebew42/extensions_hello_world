@@ -3,11 +3,11 @@ defmodule ExtensionsHelloWorld.ChangeColorUseCaseTest do
 
   import Mox
 
-  alias ExtensionsHelloWorld.User
+  alias ExtensionsHelloWorld.Model.User
   alias ExtensionsHelloWorld.MockUsers, as: Users
   alias ExtensionsHelloWorld.MockCoolDown, as: CoolDown
 
-  alias ExtensionsHelloWorld.Channel
+  alias ExtensionsHelloWorld.Model.Channel
   alias ExtensionsHelloWorld.MockChannels, as: Channels
   alias ExtensionsHelloWorld.MockColorPicker, as: ColorPicker
 

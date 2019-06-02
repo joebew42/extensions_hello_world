@@ -1,5 +1,5 @@
 defmodule ExtensionsHelloWorld.Infrastructure.GenServerUsers do
-  @behaviour ExtensionsHelloWorld.Users
+  @behaviour ExtensionsHelloWorld.Model.Users
 
   @impl true
   def find(_user_id) do

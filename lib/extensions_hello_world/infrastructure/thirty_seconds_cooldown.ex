@@ -1,5 +1,5 @@
 defmodule ExtensionsHelloWorld.Infrastructure.ThirtySecondsCoolDown do
-  @behaviour ExtensionsHelloWorld.CoolDown
+  @behaviour ExtensionsHelloWorld.Model.CoolDown
 
   @impl true
   def new() do

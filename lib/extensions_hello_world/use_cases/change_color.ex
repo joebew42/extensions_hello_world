@@ -1,11 +1,11 @@
 defmodule ExtensionsHelloWorld.UseCases.ChangeColor do
-  @behaviour ExtensionsHelloWorld.UseCase
+  @behaviour ExtensionsHelloWorld.Model.UseCase
 
   @user_is_in_cool_down   "user is in cool down"
   @user_is_changing_color "user is changing color"
 
-  alias ExtensionsHelloWorld.User
-  alias ExtensionsHelloWorld.Channel
+  alias ExtensionsHelloWorld.Model.User
+  alias ExtensionsHelloWorld.Model.Channel
 
   @impl true
   def run_with(channel_id: channel_id, user_id: user_id) do

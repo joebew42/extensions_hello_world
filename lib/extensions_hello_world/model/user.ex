@@ -1,4 +1,4 @@
-defmodule ExtensionsHelloWorld.User do
+defmodule ExtensionsHelloWorld.Model.User do
   defstruct id: nil, cooldown: nil
 
   def cooldown?(%__MODULE__{ cooldown: cooldown }) do

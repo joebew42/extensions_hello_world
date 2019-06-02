@@ -1,5 +1,5 @@
 defmodule ExtensionsHelloWorld.Infrastructure.TwitchAPIPublisher do
-  @behaviour ExtensionsHelloWorld.Publisher
+  @behaviour ExtensionsHelloWorld.Model.Publisher
 
   @impl true
   def publish(_notification) do
