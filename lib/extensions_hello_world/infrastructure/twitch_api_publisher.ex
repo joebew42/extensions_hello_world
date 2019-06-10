@@ -20,7 +20,6 @@ defmodule ExtensionsHelloWorld.Infrastructure.TwitchAPIPublisher do
 
     %HTTPoison.Response{status_code: 204} =
       HTTPoison.post!("https://api.twitch.tv/extensions/message/#{channel_id}", body, headers)
-      |> IO.inspect(label: "response from Twitch API")
 
     :ok
   end
