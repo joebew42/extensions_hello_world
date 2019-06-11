@@ -9,8 +9,6 @@ defmodule ExtensionsHelloWorld.Infrastructure.WebControllerTest do
 
   alias ExtensionsHelloWorld.Infrastructure.WebController
 
-  @opts WebController.init([])
-
   setup :verify_on_exit!
 
   describe "with an invalid token" do
@@ -74,6 +72,6 @@ defmodule ExtensionsHelloWorld.Infrastructure.WebControllerTest do
   end
 
   defp call(conn, plug_router) do
-    plug_router.call(conn, @opts)
+    plug_router.call(conn, [])
   end
 end
