@@ -105,3 +105,7 @@ You will get a response like that:
   ]
 }
 ```
+
+**Q. How can I use [Extensions Developer Rig](https://dev.twitch.tv/docs/extensions/rig/) ?**
+
+TBD

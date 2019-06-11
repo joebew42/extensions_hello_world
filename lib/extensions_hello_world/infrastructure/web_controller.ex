@@ -1,6 +1,8 @@
 defmodule ExtensionsHelloWorld.Infrastructure.WebController do
   use Plug.Router
 
+  plug Plug.Static, at: "/", from: :extensions_hello_world
+
   plug(CORSPlug)
   plug(:match)
   plug(:dispatch)
