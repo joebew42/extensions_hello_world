@@ -3,6 +3,6 @@ defmodule ExtensionsHelloWorld.Infrastructure.GenServerChannels do
 
   @impl true
   def save(_channel) do
-    raise "Not Yet Implemented"
+    :ok
   end
 end
